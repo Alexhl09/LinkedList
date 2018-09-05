@@ -1,10 +1,10 @@
-// Hola
 
 #include "Node.h"
 #include <iostream>
 template <class T>
 class LinkedList
 {
+    
 public:
     LinkedList();
     LinkedList(LinkedList<T> const &);
