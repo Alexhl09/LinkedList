@@ -1,4 +1,10 @@
-
+//Alejandro Hernández López
+// A00822926
+// Linked List
+//Operaciones
+// 5 DE SEPTIEMBRE DE 2018
+#ifndef LinkedList_h
+#define LinkedList_h
 #include "Node.h"
 #include <iostream>
 template <class T>
@@ -29,6 +35,8 @@ public:
     void operator += (LinkedList<T>const &);
     void shift(int);
     void spin(int);
+    LinkedList<T> split(int n);
+    bool check();
 private:
     Node<T> *head;
     int size;
@@ -271,6 +279,10 @@ void LinkedList<T>:: print()
 	}
 	std::cout << std::endl << "FIN\n";
 }
+// NOMBRE: reverse
+// Descripcion:  Invierte el contenido de la lista encadenada.
+// Parametros: None
+// Ruturn: void
 template <class T>
 void LinkedList<T>::reverse()
 {
@@ -289,6 +301,10 @@ void LinkedList<T>::reverse()
         }
     }
 }
+// NOMBRE: operator ==
+// Descripcion:   Revisa si dos listas encadenadas tienen el mismo contenido y en el mismo orden.
+// Parametros: Otro objeto linkedList
+// Ruturn: bool
 template <class T>
 bool LinkedList<T>::operator==(LinkedList<T> const &objeto)
 {
@@ -313,31 +329,43 @@ bool LinkedList<T>::operator==(LinkedList<T> const &objeto)
     }
     return true;
 }
+// NOMBRE: operator =
+// Descripcion:   Asigna una lista encadenada complete
+// Parametros: Otro objeto linkedList
+// Ruturn: void
 template <class T>
 void LinkedList<T>::operator = (LinkedList<T> const &objeto)
 {
   
-    this->borraTodo();
+    this->deleteAll();
     Node<T> * c = objeto.head;
-    for(size_t i = 0; i < objeto.size; i++)
+    for(size_t i = 0; i < objeto.size ; i++)
     {
+       
         this->addLast(c->getData());
         c = c->getNext();
     }
     
+    
+    
 }
+
+// NOMBRE: operator +=
+// Descripcion:    Apendiza la información al final de la lista encadenada.
+// Parametros: Otro objeto de tipo T
+// Ruturn: void
 template <class T>
 void LinkedList<T>::operator += (T objeto)
 {
-    Node<T>* node = head;
-    while(node->getNext() != nullptr)
-    {
-        node = node->getNext();
-    }
-    node->setNext(new Node<T>(objeto));
-    size++;
+    addLast(objeto);
 
 }
+
+
+// NOMBRE: operator +=
+// Descripcion:   Apendiza toda la info de la lista endadenada l, al final de la lista encadenada.
+// Parametros: Otro objeto de tipo lista encadenada
+// Ruturn: void
 template< class T>
 void LinkedList<T>::operator += (LinkedList<T> const & objeto)
 {
@@ -350,6 +378,15 @@ void LinkedList<T>::operator += (LinkedList<T> const & objeto)
     
     
 }
+
+
+// NOMBRE: shift
+/* Descripcion:    hace un corrimiento de int casillas en la lista encadenada. Si int
+es 2, la cero pasa a ser la 2 , la 1 la 3 y así en forma circular. Si int es -1
+la cero pasa a ser la última, la 1 la cero y así sucesivamente.
+ */
+// Parametros: Numero de veces de shift
+// Ruturn: void
 template< class T>
 void LinkedList<T>::shift(int veces)
 {
@@ -376,7 +413,7 @@ void LinkedList<T>::shift(int veces)
         {
             temp = temp->getNext();
         }
-        std::cout << temp->getData() << std::endl;
+       
         head = temp->getNext();
         
         temp->setNext(nullptr);
@@ -397,6 +434,13 @@ void LinkedList<T>::shift(int veces)
     }
 }
 
+
+// NOMBRE: spin
+/*
+ Descripcion: Realiza reverse intermedios por cada int elementos.
+ */
+// Parametros: Numero de veces de spin
+// Ruturn: void
 template< class T>
 void LinkedList<T>::spin(int veces)
 {
@@ -487,8 +531,14 @@ void LinkedList<T>::spin(int veces)
             
         }
     }
-        
+    
+   
 }
+
+
+
+
+
 //        LinkedList<T> temp;
 //        LinkedList<T> tempTotal;
 //        int contador = 0;
@@ -517,3 +567,6 @@ void LinkedList<T>::spin(int veces)
 //        this->deleteAll();
 //        *this = tempTotal;
 //
+
+
+#endif
